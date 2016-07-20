@@ -1,0 +1,15 @@
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin list-unstyled() {
+  padding-left: 0;
+  list-style: none;
+}

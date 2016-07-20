@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TEST DEMO</title>
+</head>
+<body>
+
+  <div id="app">
+    <form action="">
+      <input type="date" is="date" value="2011-01-01" :required="true" format-date="YYYY/MM/DD" />
+      <input type="datetime" is="date" value="" required format-datetime="YYYY/MM/DD HH:mm" />
+      <input type="datetime" is="date" required="required" />
+      <input type="datetime" is="date" value="2011-01-01" style="position: absolute;right: 0;"/>
+      <input type="datetime" is="date" value="2011-01-01" style="position: absolute;left: 200px;top: 200px;"/>
+      <input type="datetime" is="date" value="2011-01-01" style="position: absolute;bottom: 100px;"/>
+      <input type="submit" />
+    </form>
+  </div>
+
+  <script src="bundle.js"></script>
+</body>
+</html>
