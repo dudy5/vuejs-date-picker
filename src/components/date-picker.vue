@@ -335,7 +335,7 @@ export default {
     onKeyup(evt) {
       this.$emit('date-will-change', this.getDate('now'))
       const val = evt.target.value
-      if (!(this.isCorrectFormatDate(val))) return
+      if (!(moment(new Date(val)).isValid())) return
       const date = this.getDate(val)
       this.year = date.year()
       this.monthNum = date.month()
@@ -377,7 +377,7 @@ export default {
     getDate(value) {
       let self = this
       const DATE = moment(new Date(value)).isValid()
-        ? (this.utc ? moment.utc(value) : moment(value))
+        ? (this.utc ? moment.utc(new Date(value)) : moment(new Date(value)))
         : (
           value === 'now'
           ? (
@@ -438,36 +438,6 @@ export default {
         },
       }
     },
-    isCorrectFormatDate(val) {
-      if (typeof val === 'undefined' || val === null) {
-        return false
-      }
-      const s = /^\d{4}-\d{2}-\d{2}$/
-      const l = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]/
-      if (!((val.match(s) !== null) || (l.exec(val) !== null))) {
-        return false
-      }
-      if (new Date(val.replace(/-/g, '/')).toString() === 'Invalid Date') {
-        return false
-      }
-      return true
-    },
-    setToDefaultDateIfNeeded() {
-      let arr
-      if (this.type === 'datetime') {
-        arr = [{ year: this.year }, { monthNum: this.monthNum }, { day: this.day },
-          { hour: this.hour }, { minute: this.minute }]
-      } else if (this.type === 'date') {
-        arr = [{ year: this.year }, { day: this.day }, { monthNum: this.monthNum }]
-      } else {
-        arr = [{ year: this.year }, { day: this.day }, { monthNum: this.monthNum }]
-      }
-      arr.forEach((val) => {
-        if (Object.values(val)[0] === '') {
-          this[Object.keys(val)[0]] = this.defaultDate[Object.keys(val)[0]]
-        }
-      })
-    },
     setShowDate(date = null) {
       if (date) {
         this.showDate = date
@@ -475,13 +445,17 @@ export default {
       } else if (!this.showDateChangeable && this.isDefaultDate) {
         this.showDate = ''
       } else if (this.type === 'datetime') {
-        this.showDate = dateFormat(this.getDate('now').date(), this.format)
+        const formatDate = dateFormat(this.getDate('now').date(), this.format)
+        // 左右键切换月份时,有时有的月份没有相应day,此时返回空
+        this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
         this.showDateChangeable = true
       } else if (this.type === 'date') {
-        this.showDate = dateFormat(this.getDate('now').date(), this.format)
+        const formatDate = dateFormat(this.getDate('now').date(), this.format)
+        this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
         this.showDateChangeable = true
       } else {
-        this.showDate = dateFormat(this.getDate('now').date(), this.format)
+        const formatDate = dateFormat(this.getDate('now').date(), this.format)
+        this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
         this.showDateChangeable = true
       }
     },
@@ -493,7 +467,6 @@ export default {
       }
     },
     'show-date-change'() {
-      this.setToDefaultDateIfNeeded()
       this.showDateIsChanged = true
     },
   },

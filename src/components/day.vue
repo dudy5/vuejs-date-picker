@@ -58,6 +58,7 @@
 </template>
 
 <script>
+let moment = require('moment')
 import { MONTH_NAMES } from './constant'
 
 export default {
@@ -180,9 +181,7 @@ export default {
       })
     },
     computeWeekDay(year, month, day) {
-      const weekDay = new Date(
-              `${year}/${month}/${(day.toString()).length === 1 ? 0 + day.toString() : day}`
-      ).getDay()
+      const weekDay = moment({ y: year, M: month - 1, d: day }).day()
       return (weekDay === 0) ? 7 : weekDay
     },
     getDayIndexOfMonth(month, day) {
