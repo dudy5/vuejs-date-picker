@@ -139,6 +139,7 @@
 
 <script>
 import $ from 'jquery'
+let moment = require('moment')
 import Tether from 'tether'
 import Month from './month.vue'
 import Year from './year.vue'
@@ -147,15 +148,9 @@ import Day from './day.vue'
 import Time from './time.vue'
 import { MONTH_NAMES } from './constant'
 
-const defaultDate = () => {
-  const newDate = new Date()
-  return {
-    year: newDate.getFullYear(),
-    monthNum: newDate.getMonth() + 1,
-    day: newDate.getDate(),
-    hour: newDate.getHours(),
-    minute: newDate.getMinutes(),
-  }
+const dateFormat = function (value, format = 'YYYY-MM-DD') {
+  if (!value) return ''
+  return value.format(format)
 }
 
 export default {
@@ -165,6 +160,10 @@ export default {
     target: [HTMLElement, String],
     formatDate: String,
     formatDatetime: String,
+    utc: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -175,11 +174,11 @@ export default {
 
       showDateChangeable: false,
       showDateIsChanged: false,
-      year: defaultDate().year,
-      monthNum: defaultDate().monthNum,
-      day: defaultDate().day,
-      hour: defaultDate().hour,
-      minute: defaultDate().minute,
+      year: '',
+      monthNum: '',
+      day: '',
+      hour: '',
+      minute: '',
       showDate: '',
       isOverScreen: false,
       overScreenSide: null,
@@ -209,14 +208,15 @@ export default {
       nameArr.splice(3, nameArr.length - 3)
       return nameArr.join('')
     },
-    dateOfNoTime() {
-      if ([this.year, this.monthNum, this.day].indexOf('') > -1) return ''
-      return `${this.year}-${this.numToTwoPlace(this.monthNum)}-${this.numToTwoPlace(this.day)}`
-    },
-    dateOfHasTime() {
-      if ([this.year, this.monthNum, this.day, this.hour, this.minute].indexOf('') > -1) return ''
-      return `${this.year}-${this.numToTwoPlace(this.monthNum)}-${this.numToTwoPlace(this.day)}` +
-              ` ${this.numToTwoPlace(this.hour)}:${this.numToTwoPlace(this.minute)}`
+    defaultDate() {
+      const DATE = this.utc ? moment.utc() : moment()
+      return {
+        year: DATE.year(),
+        monthNum: DATE.month() + 1,
+        day: DATE.date(),
+        hour: DATE.hour(),
+        minute: DATE.minute(),
+      }
     },
   },
   methods: {
@@ -276,55 +276,55 @@ export default {
     },
 
     increaseMonth() {
-      this.$emit('date-will-change', this.$data)
+      this.$emit('date-will-change', this.getDate('now'))
       if (this.monthNum !== 12) {
         this.monthNum = Math.min(this.monthNum + 1, 12)
       } else if (this.monthNum === 12) {
         this.monthNum = 1
         this.increaseYear()
       }
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
       if (this.showDateChangeable) {
         this.setShowDate()
         this.$emit('show-date-change', this.showDate)
       }
     },
     dcreaseMonth() {
-      this.$emit('date-will-change', this.$data)
+      this.$emit('date-will-change', this.getDate('now'))
       if (this.monthNum !== 1) {
         this.monthNum = Math.max(this.monthNum - 1, 1)
       } else if (this.monthNum === 1) {
         this.monthNum = 12
         this.dcreaseYear()
       }
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
       if (this.showDateChangeable) {
         this.setShowDate()
         this.$emit('show-date-change', this.showDate)
       }
     },
     timeUpdatedByTimeInputBox(evt) {
-      this.$emit('date-will-change', this.$data)
+      this.$emit('date-will-change', this.getDate('now'))
       if (evt.type === 'hour') {
         this.hour = evt.value
       } else if (evt.type === 'minute') {
         this.minute = evt.value
       }
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
       if (this.showDateChangeable) {
         this.setShowDate()
         this.$emit('show-date-change', this.showDate)
       }
     },
     dayUpdatedByClick(evt) {
-      this.$emit('date-will-change', this.$data)
+      this.$emit('date-will-change', this.getDate('now'))
       this.day = evt.day
       this.year = evt.year
       this.monthNum = evt.monthNum
       if (!this.showDateChangeable && !this.showDateIsChanged) {
         this.showDateChangeable = true
       }
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
       this.setShowDate()
       this.$emit('show-date-change', this.showDate)
       if (this.type === 'date') {
@@ -333,7 +333,7 @@ export default {
     },
 
     onKeyup(evt) {
-      this.$emit('date-will-change', this.$data)
+      this.$emit('date-will-change', this.getDate('now'))
       const val = evt.target.value
       if (!(this.isCorrectFormatDate(val))) return
       const date = this.getDate(val)
@@ -345,7 +345,7 @@ export default {
       if (!this.showDateChangeable && !this.showDateIsChanged) {
         this.showDateChangeable = true
       }
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
       this.setShowDate()
       this.$emit('show-date-change', this.showDate)
     },
@@ -356,7 +356,7 @@ export default {
       this.initDay()
       this.initHour()
       this.initMinute()
-      this.$emit('date-change', this.$data)
+      this.$emit('date-change', this.getDate('now'))
     },
     initYear() {
       this.year = this.getDate(this.value).year()
@@ -374,57 +374,67 @@ export default {
       this.minute = this.getDate(this.value).minute()
     },
 
-    numToTwoPlace(val) {
-      return val.toString().length === 2 ? val.toString() : `0${val}`
-    },
     getDate(value) {
-      const self = this
-      const date = self.isCorrectFormatDate(value) ? new Date(value.replace(/-/g, '/')) : ''
+      let self = this
+      const DATE = moment(new Date(value)).isValid()
+        ? (this.utc ? moment.utc(value) : moment(value))
+        : (
+          value === 'now'
+          ? (
+            this.utc
+            ? moment.utc({ y: this.year, M: this.monthNum - 1, d: this.day, h: this.hour, m: this.minute })
+            : moment({ y: this.year, M: this.monthNum - 1, d: this.day, h: this.hour, m: this.minute })
+          )
+          : ''
+        )
       return {
         year() {
-          if (date) {
-            return date.getFullYear()
+          if (DATE) {
+            return DATE.year()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
           }
-          return defaultDate().year
+          return self.defaultDate.year
         },
         month() {
-          if (date) {
-            return date.getMonth() + 1
+          if (DATE) {
+            return DATE.month() + 1
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
           }
-          return defaultDate().monthNum
+          return self.defaultDate.monthNum
         },
         day() {
-          if (date) {
-            return date.getDate()
+          if (DATE) {
+            return DATE.date()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
           }
-          return defaultDate().day
+          return self.defaultDate.day
         },
         hour() {
-          if (date) {
-            return date.getHours()
+          if (DATE) {
+            return DATE.hour()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
           }
-          return defaultDate().hour
+          return self.defaultDate.hour
         },
         minute() {
-          if (date) {
-            return date.getMinutes()
+          if (DATE) {
+            return DATE.minute()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
           }
-          return defaultDate().minute
+          return self.defaultDate.minute
+        },
+        date() {
+          return DATE
         },
       }
     },
@@ -454,7 +464,7 @@ export default {
       }
       arr.forEach((val) => {
         if (Object.values(val)[0] === '') {
-          this[Object.keys(val)[0]] = defaultDate()[Object.keys(val)[0]]
+          this[Object.keys(val)[0]] = this.defaultDate[Object.keys(val)[0]]
         }
       })
     },
@@ -465,13 +475,13 @@ export default {
       } else if (!this.showDateChangeable && this.isDefaultDate) {
         this.showDate = ''
       } else if (this.type === 'datetime') {
-        this.showDate = this.dateOfHasTime
+        this.showDate = dateFormat(this.getDate('now').date(), this.format)
         this.showDateChangeable = true
       } else if (this.type === 'date') {
-        this.showDate = this.dateOfNoTime
+        this.showDate = dateFormat(this.getDate('now').date(), this.format)
         this.showDateChangeable = true
       } else {
-        this.showDate = this.dateOfNoTime
+        this.showDate = dateFormat(this.getDate('now').date(), this.format)
         this.showDateChangeable = true
       }
     },

@@ -306,6 +306,7 @@ function ObjectTypeAnnotation(node) {
 
     this.printJoin(props, node, {
       indent: true,
+      statement: true,
       iterator: function iterator() {
         if (props.length !== 1) {
           _this.semicolon();

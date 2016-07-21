@@ -48,6 +48,7 @@
       required: [Boolean, String],
       formatDate: String,
       formatDatetime: String,
+      utc: Boolean,
     },
     data() {
       return {
@@ -84,6 +85,7 @@
             ':target="target" ' +
             ':format-date="formatDate" ' +
             ':format-datetime="formatDatetime" ' +
+            ':utc="utc" ' +
             '@will-open="willOpenCallback" ' +
             '@open="openCallback" ' +
             '@will-close="willCloseCallback" ' +
@@ -100,6 +102,7 @@
               target: inputVM.target || inputVM.$el,
               formatDate: inputVM.formatDate,
               formatDatetime: inputVM.formatDatetime,
+              utc: inputVM.utc
             }
           },
           methods: {
