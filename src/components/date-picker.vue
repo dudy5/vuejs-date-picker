@@ -335,6 +335,11 @@ export default {
     onKeyup(evt) {
       this.$emit('date-will-change', this.getDate('now'))
       const val = evt.target.value
+      if (this.formatDate) {
+        if (val.length < this.formatDate.length) return
+      } else if (this.formatDatetime) {
+        if (val.length < this.formatDatetime.length) return
+      }
       if (!(moment(new Date(val)).isValid())) return
       const date = this.getDate(val)
       this.year = date.year()
@@ -441,22 +446,19 @@ export default {
     setShowDate(date = null) {
       if (date) {
         this.showDate = date
-        this.showDateChangeable = true
+        if (!this.showDateChangeable) {
+          this.showDateChangeable = true
+        }
       } else if (!this.showDateChangeable && this.isDefaultDate) {
         this.showDate = ''
-      } else if (this.type === 'datetime') {
+      } else {
+        // 'datetime' OR 'date' OR other
         const formatDate = dateFormat(this.getDate('now').date(), this.format)
         // 左右键切换月份时,有时有的月份没有相应day,此时返回空
         this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
-        this.showDateChangeable = true
-      } else if (this.type === 'date') {
-        const formatDate = dateFormat(this.getDate('now').date(), this.format)
-        this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
-        this.showDateChangeable = true
-      } else {
-        const formatDate = dateFormat(this.getDate('now').date(), this.format)
-        this.showDate =formatDate !== 'Invalid date' ? formatDate : ''
-        this.showDateChangeable = true
+        if (!this.showDateChangeable) {
+          this.showDateChangeable = true
+        }
       }
     },
   },
