@@ -1,0 +1,14 @@
+*.lock
+.DS_Store
+.idea/
+*.lock
+*.log
+*.zip
+*.rar
+*.diff
+*/dist/**
+*/deploy/**
+node_modules
+proxy.json
+mock.json
+build
