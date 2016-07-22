@@ -2,7 +2,7 @@
   "name": "vuejs-date-picker",
   "version": "1.0.0",
   "description": "Datepicker component for Vue.js, Same as input(type=date) or input(type=datetime)",
-  "main": "vuejs-date-picker.vue",
+  "main": "./src/components/date.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --progress --colors --watch"
