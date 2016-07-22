@@ -10,7 +10,7 @@ The datePicker can be automatically append to body element, So it have no stakin
 <input type="date" is="date" />
 ```
 
-# Usage
+# Getting Started
 
 ```
 <input type="date" is="date" />
@@ -18,4 +18,9 @@ The datePicker can be automatically append to body element, So it have no stakin
 OR
 ```
 <input type="datetime" is="datetime" />
+```
+
+# Installation
+```
+npm install vuejs-date-picker
 ```
