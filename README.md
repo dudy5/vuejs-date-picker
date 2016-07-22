@@ -33,62 +33,62 @@ npm install vuejs-date-picker
 
 ## props
 
-### type
+* ### type
 
 * **date** : It have no input box of time, It accept String type
 * **datetime** : It have input box of time, It accept String type
 
-### value
+* ### value
 
 If it is empty, Vuejs-date-picker will set a default date for it
 
-### utc
+* ### utc
 
 The default mode is not in utc, Set **true** make date in UTC mode
 
-### format-date
+* ### format-date
 
 If type prop is date, It will Apply this format, The default format is 'YYYY-MM-DD'
 
-### format-datetime
+* ### format-datetime
 
 If type prop is datetime, It will Apply this format, The default format is 'YYYY-MM-DD HH:mm'
 
-### target
+* ### target
 
 It requires a reference to be positioned as the origin, It accepts HTMLElement and String types
 
-### name
+* ### name
 
 Same as native name property
 
-### required
+* ### required
 
 Same as native required property
 
-### focus
+* ### focus
 
 When this value is true, It will get the focus, otherwise, It will lose focus, It accept Boolean type
 
-### blur
+* ### blur
 
 When this value is true, It will lose the focus, otherwise, It will get focus, It accept Boolean type
 
 ## events
 
-### will-open
+* ### will-open
 
 No event data
 
 It will be triggered when the datePicker will open
 
-### open
+* ### open
 
 No event data
 
 It will be triggered after the datePicker opens
 
-### change
+* ### change
 
 **event data :**
 
@@ -96,7 +96,7 @@ It will be triggered after the datePicker opens
 
 It will be triggered after the input value is changed
 
-### will-close
+* ### will-close
 
 **event data :**
 
@@ -105,7 +105,7 @@ It will be triggered after the input value is changed
 
 It will be triggered when the datePicker will close
 
-### close
+* ### close
 
 **event data :**
 
@@ -114,13 +114,13 @@ It will be triggered when the datePicker will close
 
 It will be triggered after the datePicker is closed
 
-### flip
+* ### flip
 
 No event data
 
 It will be triggered when the datePicker is flipped
 
-### picker-will-destroy
+* ### picker-will-destroy
 
 **event data :**
 
@@ -129,7 +129,7 @@ It will be triggered when the datePicker is flipped
 
 It will be triggered when the datePicker will be destroyed
 
-### picker-destroyed
+* ### picker-destroyed
 
 **event data :**
 
@@ -138,7 +138,7 @@ It will be triggered when the datePicker will be destroyed
 
 It will be triggered after the datePicker is destroyed
 
-### input-will-destroy
+* ### input-will-destroy
 
 **event data :**
 
@@ -147,7 +147,7 @@ It will be triggered after the datePicker is destroyed
 
 It will be triggered when the input will be destroyed
 
-### input-destroyed
+* ### input-destroyed
 
 No event data
 
