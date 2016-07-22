@@ -58,7 +58,7 @@
 </template>
 
 <script>
-let moment = require('moment')
+const moment = require('moment')
 import { MONTH_NAMES } from './constant'
 
 export default {

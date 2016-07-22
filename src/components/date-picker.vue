@@ -139,7 +139,7 @@
 
 <script>
 import $ from 'jquery'
-let moment = require('moment')
+const moment = require('moment')
 import Tether from 'tether'
 import Month from './month.vue'
 import Year from './year.vue'
@@ -209,13 +209,13 @@ export default {
       return nameArr.join('')
     },
     defaultDate() {
-      const DATE = this.utc ? moment.utc() : moment()
+      const date = this.utc ? moment.utc() : moment()
       return {
-        year: DATE.year(),
-        monthNum: DATE.month() + 1,
-        day: DATE.date(),
-        hour: DATE.hour(),
-        minute: DATE.minute(),
+        year: date.year(),
+        monthNum: date.month() + 1,
+        day: date.date(),
+        hour: date.hour(),
+        minute: date.minute(),
       }
     },
   },
@@ -380,8 +380,8 @@ export default {
     },
 
     getDate(value) {
-      let self = this
-      const DATE = moment(new Date(value)).isValid()
+      const self = this
+      const date = moment(new Date(value)).isValid()
         ? (this.utc ? moment.utc(new Date(value)) : moment(new Date(value)))
         : (
           value === 'now'
@@ -394,8 +394,8 @@ export default {
         )
       return {
         year() {
-          if (DATE) {
-            return DATE.year()
+          if (date) {
+            return date.year()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
@@ -403,8 +403,8 @@ export default {
           return self.defaultDate.year
         },
         month() {
-          if (DATE) {
-            return DATE.month() + 1
+          if (date) {
+            return date.month() + 1
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
@@ -412,8 +412,8 @@ export default {
           return self.defaultDate.monthNum
         },
         day() {
-          if (DATE) {
-            return DATE.date()
+          if (date) {
+            return date.date()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
@@ -421,8 +421,8 @@ export default {
           return self.defaultDate.day
         },
         hour() {
-          if (DATE) {
-            return DATE.hour()
+          if (date) {
+            return date.hour()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
@@ -430,8 +430,8 @@ export default {
           return self.defaultDate.hour
         },
         minute() {
-          if (DATE) {
-            return DATE.minute()
+          if (date) {
+            return date.minute()
           }
           if (!self.isDefaultDate) {
             self.isDefaultDate = true
@@ -439,7 +439,7 @@ export default {
           return self.defaultDate.minute
         },
         date() {
-          return DATE
+          return date
         },
       }
     },
