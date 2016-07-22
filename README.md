@@ -147,6 +147,9 @@ No parameter
 
 It will be triggered after the input is destroyed
 
+# How to save input value ?
+vuejs-date-picker dost not automatically save value into input box, You should get the input value when the "will-close" or other event is triggered, and then manually save this
+
 # License
 
 [The MIT License](https://opensource.org/licenses/MIT)
