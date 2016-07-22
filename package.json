@@ -1,6 +1,6 @@
 {
   "name": "vuejs-date-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Datepicker component for Vue.js, Same as input(type=date) or input(type=datetime)",
   "main": "./src/components/date.vue",
   "scripts": {
