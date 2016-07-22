@@ -74,6 +74,40 @@ When this value is true, It will get the focus, otherwise, It will lose focus, I
 
 When this value is true, It will lose the focus, otherwise, It will get focus, It accept Boolean type
 
+## events
+
+### will-open
+No parameter
+
+### open
+No parameter
+
+### change
+You will receive a **date** parameter, **date** is the date of the current choose
+
+### will-close
+You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed
+
+### close
+No parameter
+
+### flip
+No parameter, It will be triggered when the datePicker is flipped
+
+### picker-will-destroy
+You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed    
+It will be triggered when the datePicker will be destroyed
+
+### picker-destroyed
+No parameter, It will be triggered after the datePicker is destroyed
+
+### input-will-destroy
+You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed    
+It will be triggered when the input will be destroyed
+
+### input-destroyed
+No parameter, It will be triggered after the input is destroyed
+
 # License
 
 [The MIT License](https://opensource.org/licenses/MIT)
