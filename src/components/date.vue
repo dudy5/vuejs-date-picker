@@ -8,6 +8,7 @@
     text-indent: 0.6em;
     text-align: left;
     font-size: 14px;
+    visibility: visible;
     &:focus {
       outline: none;
     }
@@ -72,7 +73,17 @@
         return this.picker.isOpen
       },
       date() {
-        if (!this.isCreated) return ''
+        if (!this.isCreated) {
+          if (!this.dateForClose) {
+            if (this.value) {
+              return this.value
+            } else {
+              return ''
+            }
+          } else {
+            return ''
+          }
+        }
         return this.picker.showDate
       },
     },
