@@ -154,10 +154,13 @@
           isChanged: evt.isChanged,
         })
       },
-      closeCallback() {
+      closeCallback(evt) {
         this.pickerWrapper.$destroy()
         this.isCreated = false
-        this.$emit('close')
+        this.$emit('close', {
+          date: evt.date,
+          isChanged: evt.isChanged,
+        })
       },
       flipCallback() {
         this.$emit('flip')
