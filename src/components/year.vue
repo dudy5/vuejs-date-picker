@@ -1,5 +1,5 @@
 <style scoped lang="sass">
-@import "style/main";
+@import "../style/main";
 .year-wrap {
   vertical-align: top;
   display: inline-block;

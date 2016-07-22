@@ -1,5 +1,5 @@
 <style scoped lang="sass">
-@import "style/main";
+@import "../style/main";
 .date-picker {
   z-index: 10000;
   width: 250px;

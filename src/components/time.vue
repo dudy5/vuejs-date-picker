@@ -1,5 +1,5 @@
 <style scoped lang="sass">
-@import "style/main";
+@import "../style/main";
 .time-wrap {
   border-top: 1px solid #dee5ec;
   height: 35px;

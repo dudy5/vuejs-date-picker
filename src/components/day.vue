@@ -1,5 +1,5 @@
 <style scoped lang="sass">
-@import "style/main";
+@import "../style/main";
 .day-list {
   overflow: hidden;
   @include list-unstyled();

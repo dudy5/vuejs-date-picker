@@ -1,5 +1,5 @@
 <style lang="sass" scoped>
-  @import "style/main";
+  @import "../style/main";
   .date {
     width: 180px;
     height: 30px;

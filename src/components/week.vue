@@ -1,5 +1,5 @@
 <style scoped lang="sass">
-@import "style/main";
+@import "../style/main";
 .week-list {
   clear: both;
   margin-left: -8px;
