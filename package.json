@@ -5,8 +5,7 @@
   "main": "vuejs-date-picker.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --progress --colors --watch",
-    "build": "webpack -p --progress --hide-modules"
+    "start": "webpack-dev-server --progress --colors --watch"
   },
   "repository": {
     "type": "git",

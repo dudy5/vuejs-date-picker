@@ -1,4 +1,3 @@
-var webpack = require('webpack')
 var vue = require('vue-loader')
 var path = require('path')
 
