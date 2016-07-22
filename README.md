@@ -80,15 +80,21 @@ When this value is true, It will lose the focus, otherwise, It will get focus, I
 
 No event data
 
+It will be triggered when the datePicker will open
+
 ### open
 
 No event data
+
+It will be triggered after the datePicker opens
 
 ### change
 
 **event data :**
 
 * **date** : The date of the current choose
+
+It will be triggered after the input value is changed
 
 ### will-close
 
@@ -97,13 +103,19 @@ No event data
 * **date** : The date of the current choose
 * **isChanged** : Means whether the date has been changed
 
+It will be triggered when the datePicker will close
+
 ### close
 
 No parameter
 
+It will be triggered after the datePicker is closed
+
 ### flip
 
-No parameter, It will be triggered when the datePicker is flipped
+No parameter
+
+It will be triggered when the datePicker is flipped
 
 ### picker-will-destroy
 
@@ -112,11 +124,13 @@ No parameter, It will be triggered when the datePicker is flipped
 * **date** : The date of the current choose
 * **isChanged** : Means whether the date has been changed
 
-It will be triggered when the datePicker will be destroyedIt
+It will be triggered when the datePicker will be destroyed
 
 ### picker-destroyed
 
-No parameter, It will be triggered after the datePicker is destroyed
+No parameter
+
+It will be triggered after the datePicker is destroyed
 
 ### input-will-destroy
 
@@ -129,7 +143,9 @@ It will be triggered when the input will be destroyed
 
 ### input-destroyed
 
-No parameter, It will be triggered after the input is destroyed
+No parameter
+
+It will be triggered after the input is destroyed
 
 # License
 
