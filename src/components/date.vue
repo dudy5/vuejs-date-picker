@@ -21,7 +21,7 @@
       || required === ''
       || (typeof required === 'boolean' && required)"
     :name="name"
-    :value="date"
+    :value="date || dateForClose"
     v-focus="focus"
     v-blur="blur"
     v-bind-close-event="isOpen"
@@ -55,6 +55,8 @@
         pickerWrapper: null,
         isCreated: false,
         isFocus: false,
+        //比较难处理的一个问题,因为input在渲染时picker是还没有的,所以读取this.picker就会报错,所以就会进行this.isCreated判断,这样input渲染时是没问题了,但在picker关闭后,由于this.isCreated值会被再次取反为false,reactive机制,就会引起date的变化,返回空,我的解决办法就是用dateForClose在关闭时临时存储下这个值
+        dateForClose: '',
       }
     },
     computed: {
@@ -97,7 +99,7 @@
           '></picker>',
           data() {
             return {
-              value: inputVM.value,
+              value: inputVM.dateForClose || inputVM.value,
               type: inputVM.type || 'date',
               target: inputVM.target || inputVM.$el,
               formatDate: inputVM.formatDate,
@@ -126,6 +128,7 @@
         this.isFocus = true
         if (this.isCreated) return
         this.create()
+        this.dateForClose = ''
         this.picker.open()
       },
       close() {
@@ -157,6 +160,7 @@
       closeCallback(evt) {
         this.pickerWrapper.$destroy()
         this.isCreated = false
+        this.dateForClose = evt.date
         this.$emit('close', {
           date: evt.date,
           isChanged: evt.isChanged,
@@ -171,8 +175,12 @@
           isChanged: evt.isChanged,
         })
       },
-      pickerDestroyedCallback() {
-        this.$emit('picker-destroyed')
+      pickerDestroyedCallback(evt) {
+        this.dateForClose = evt.date
+        this.$emit('picker-destroyed', {
+          date: evt.date,
+          isChanged: evt.isChanged,
+        })
       },
     },
     beforeDestroy() {

@@ -481,7 +481,11 @@ export default {
     })
   },
   destroyed() {
-    this.$emit('destroyed')
+    const date = this.showDate
+    this.$emit('destroyed', {
+      date,
+      isChanged: this.showDateIsChanged,
+    })
   },
   directives: {
     position: {
