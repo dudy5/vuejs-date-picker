@@ -78,19 +78,24 @@ When this value is true, It will lose the focus, otherwise, It will get focus, I
 
 ### will-open
 
-No parameter
+No event data
 
 ### open
 
-No parameter
+No event data
 
 ### change
 
-You will receive a **date** parameter, **date** is the date of the current choose
+**event data :**
+
+* **date** : The date of the current choose
 
 ### will-close
 
-You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed
+**event data :**
+
+* **date** : The date of the current choose
+* **isChanged** : Means whether the date has been changed
 
 ### close
 
@@ -102,8 +107,12 @@ No parameter, It will be triggered when the datePicker is flipped
 
 ### picker-will-destroy
 
-You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed    
-It will be triggered when the datePicker will be destroyed
+**event data :**
+
+* **date** : The date of the current choose
+* **isChanged** : Means whether the date has been changed
+
+It will be triggered when the datePicker will be destroyedIt
 
 ### picker-destroyed
 
@@ -111,7 +120,11 @@ No parameter, It will be triggered after the datePicker is destroyed
 
 ### input-will-destroy
 
-You will receive a **date** parameter and a **isChanged** parameter, **date** is the date of the current choose, **isChanged** means whether the date has been changed    
+**event data :**
+
+* **date** : The date of the current choose
+* **isChanged** : Means whether the date has been changed
+
 It will be triggered when the input will be destroyed
 
 ### input-destroyed
