@@ -107,13 +107,16 @@ It will be triggered when the datePicker will close
 
 ### close
 
-No parameter
+**event data :**
+
+* **date** : The date of the current choose
+* **isChanged** : Means whether the date has been changed
 
 It will be triggered after the datePicker is closed
 
 ### flip
 
-No parameter
+No event data
 
 It will be triggered when the datePicker is flipped
 
@@ -128,7 +131,10 @@ It will be triggered when the datePicker will be destroyed
 
 ### picker-destroyed
 
-No parameter
+**event data :**
+
+* **date** : The date of the current choose
+* **isChanged** : Means whether the date has been changed
 
 It will be triggered after the datePicker is destroyed
 
@@ -143,7 +149,7 @@ It will be triggered when the input will be destroyed
 
 ### input-destroyed
 
-No parameter
+No event data
 
 It will be triggered after the input is destroyed
 
