@@ -335,11 +335,7 @@ export default {
     onKeyup(evt) {
       this.$emit('date-will-change', this.getDate('now'))
       const val = evt.target.value
-      if (this.formatDate) {
-        if (val.length < this.formatDate.length) return
-      } else if (this.formatDatetime) {
-        if (val.length < this.formatDatetime.length) return
-      }
+      if (val.length < this.format.length) return
       if (!(moment(new Date(val)).isValid())) return
       const date = this.getDate(val)
       this.year = date.year()
