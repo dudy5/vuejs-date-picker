@@ -5,6 +5,7 @@ Datepicker component for Vue.js, Same as input(type=date) or input(type=datetime
 # Screenshot
 
 ![Screenshot](./screen-shot.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdudy5%2Fvuejs-date-picker.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdudy5%2Fvuejs-date-picker?ref=badge_shield)
 
 # Strong point
 
@@ -156,3 +157,6 @@ It will be triggered after the input is destroyed
 # License
 
 [The MIT License](https://opensource.org/licenses/MIT)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdudy5%2Fvuejs-date-picker.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdudy5%2Fvuejs-date-picker?ref=badge_large)
